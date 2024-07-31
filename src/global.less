@@ -5,8 +5,8 @@ body,
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji';
 }
 
 .colorWeak {
@@ -16,6 +16,7 @@ body,
 .ant-layout {
   min-height: 100vh;
 }
+
 .ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
   left: unset;
 }
@@ -39,15 +40,46 @@ ol {
   .ant-table {
     width: 100%;
     overflow-x: auto;
+
     &-thead > tr,
     &-tbody > tr {
       > th,
       > td {
         white-space: pre;
+
         > span {
           display: block;
         }
       }
     }
   }
+}
+
+.margin-16 {
+  margin-bottom: 16px;
+}
+
+.ant-cascader-menu {
+  background-color: #f5f5f5; /* 背景色 */
+}
+
+.ant-cascader-menu-item {
+  color: #333; /* 文本颜色 */
+}
+
+/* 自定义Cascader选中项的背景色和文本颜色 */
+.ant-cascader-menu-item-active {
+  background-color: #40a9ff; /* 背景色 */
+  color: #da8e8e; /* 文本颜色 */
+}
+
+/* 自定义Cascader选中项的边框颜色 */
+.ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+  border-color: #40a9ff; /* 边框颜色 */
+}
+
+/* 自定义Cascader选中项的子菜单项的背景色和文本颜色 */
+.ant-cascader-menu-item-active .ant-cascader-menu-item {
+  background-color: #e6f7ff; /* 背景色 */
+  color: #1890ff; /* 文本颜色 */
 }

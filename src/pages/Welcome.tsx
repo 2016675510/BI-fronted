@@ -1,6 +1,6 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Card, theme } from 'antd';
+import {PageContainer} from '@ant-design/pro-components';
+import {useModel} from '@umijs/max';
+import {Card, theme} from 'antd';
 import React from 'react';
 
 /**
@@ -13,10 +13,10 @@ const InfoCard: React.FC<{
   index: number;
   desc: string;
   href: string;
-}> = ({ title, href, index, desc }) => {
-  const { useToken } = theme;
+}> = ({title, href, index, desc}) => {
+  const {useToken} = theme;
 
-  const { token } = useToken();
+  const {token} = useToken();
 
   return (
     <div
@@ -84,8 +84,8 @@ const InfoCard: React.FC<{
 };
 
 const Welcome: React.FC = () => {
-  const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
+  const {token} = theme.useToken();
+  const {initialState} = useModel('@@initialState');
   return (
     <PageContainer>
       <Card
@@ -105,6 +105,7 @@ const Welcome: React.FC = () => {
             backgroundRepeat: 'no-repeat',
             backgroundSize: '274px auto',
             backgroundImage:
+
               "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
           }}
         >
@@ -114,7 +115,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎使用 Ant Design Pro
+            欢迎使用 Power-BI
           </div>
           <p
             style={{
@@ -126,7 +127,7 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
+            Power-BI 是一个整合了 umi，Power-BI 和 ProComponents
             的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
           </p>
           <div
@@ -144,15 +145,15 @@ const Welcome: React.FC = () => {
             />
             <InfoCard
               index={2}
-              title="了解 ant design"
+              title="了解 Power-BI"
               href="https://ant.design"
-              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
+              desc="antd 是基于 Power-BI 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
             />
             <InfoCard
               index={3}
               title="了解 Pro Components"
               href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
+              desc="ProComponents 是一个基于 Power-BI 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
             />
           </div>
         </div>

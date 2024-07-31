@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Ant Design Pro",
+    "title": "Power-BI",
     "version": "1.0.0"
   },
   "servers": [
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/api/login/outLogin": {
+    "/api/user/logout": {
       "post": {
         "description": "登录接口",
-        "operationId": "outLogin",
+        "operationId": "logout",
         "tags": ["login"],
         "responses": {
           "200": {
