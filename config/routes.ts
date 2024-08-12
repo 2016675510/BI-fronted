@@ -14,7 +14,12 @@
     icon: 'SlidersTwoTone',
     component: './AddChartAsync',
   },
-
   { name: '我的图表', icon: 'PieChartTwoTone', path: '/list', component: './MyChart' },
+  {
+    name: '个人中心',
+    icon: 'PieChartTwoTone',
+    path: '/user/center',
+    component: './User/UserCenter',
+  },
   { path: '*', layout: false, component: './404' },
 ];

@@ -129,9 +129,9 @@ export async function genExcelByAiUsingPost(
   });
 }
 
-/** exportExcelByAi GET /api/chart/gen/excel/export */
-export async function exportExcelByAiUsingGet(options?: { [key: string]: any }) {
-  return request<any>('/api/chart/gen/excel/export', {
+/** getExcelByAi GET /api/chart/gen/excel/get */
+export async function getExcelByAiUsingGet(options?: { [key: string]: any }) {
+  return request<API.BaseResponseExcelVO_>('/api/chart/gen/excel/get', {
     method: 'GET',
     ...(options || {}),
   });
@@ -193,6 +193,21 @@ export async function listMyChartVoByPageUsingPost(
       'Content-Type': 'application/json',
     },
     data: body,
+    ...(options || {}),
+  });
+}
+
+/** testSSE GET /api/chart/sse */
+export async function testSseUsingGet(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.testSSEUsingGETParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.SseEmitter>('/api/chart/sse', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }

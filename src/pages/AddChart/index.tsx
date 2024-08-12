@@ -36,6 +36,48 @@ const LoginMessage: React.FC<{
     />
   );
 };
+
+interface Option {
+  value: string;
+  label: string;
+  children?: Option[];
+}
+
+const options: Option[] = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
+      {
+        value: 'hangzhou',
+        label: 'Hanzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
+  },
+];
+
 /**
  * 添加图表页面
  * @constructor
@@ -102,9 +144,13 @@ const AddChart: React.FC = () => {
                   options={[
                     { value: '折线图', label: '折线图' },
                     { value: '柱状图', label: '柱状图' },
+                    { value: '线柱混搭', label: '线柱混搭' },
                     { value: '饼图', label: '饼图' },
                     { value: '雷达图', label: '雷达图' },
                     { value: '散点图', label: '散点图' },
+                    { value: '旭日图', label: '旭日图' },
+                    { value: '桑基图', label: '桑基图' },
+                    { value: '拓扑图', label: '拓扑图' },
                   ]}
                 ></Select>
               </Form.Item>

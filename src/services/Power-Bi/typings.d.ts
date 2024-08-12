@@ -22,6 +22,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseExcelVO_ = {
+    code?: number;
+    data?: ExcelVO;
+    message?: string;
+  };
+
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -139,6 +145,13 @@ declare namespace API {
     id?: number;
   };
 
+  type ExcelVO = {
+    excelData?: Record<string, any>[][];
+    execMessage?: string;
+    goal?: string;
+    status?: string;
+  };
+
   type genChartByAiAsyncUsingPOSTParams = {
     chartType?: string;
     goal?: string;
@@ -180,6 +193,7 @@ declare namespace API {
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    user_points?: number;
   };
 
   type OrderItem = {
@@ -226,6 +240,15 @@ declare namespace API {
     total?: number;
   };
 
+  type SseEmitter = {
+    timeout?: number;
+  };
+
+  type testSSEUsingGETParams = {
+    /** userMessage */
+    userMessage: string;
+  };
+
   type uploadFileUsingPOSTParams = {
     biz?: string;
   };
@@ -234,12 +257,15 @@ declare namespace API {
     createTime?: string;
     id?: number;
     isDelete?: number;
+    last_sign_date?: string;
+    total_number?: number;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
+    user_points?: number;
   };
 
   type UserAddRequest = {
@@ -281,10 +307,12 @@ declare namespace API {
 
   type UserUpdateRequest = {
     id?: number;
+    total_number?: number;
     userAvatar?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    user_points?: number;
   };
 
   type UserVO = {
@@ -294,5 +322,6 @@ declare namespace API {
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    user_points?: number;
   };
 }

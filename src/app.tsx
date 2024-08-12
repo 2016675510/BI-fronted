@@ -1,9 +1,8 @@
 import { AvatarDropdown, AvatarName, Footer, Question } from '@/components';
 import { getLoginUserUsingGet } from '@/services/Power-Bi/userController';
-import { LinkOutlined } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history, Link } from '@umijs/max';
+import { history } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -21,6 +20,7 @@ export async function getInitialState(): Promise<{
       return msg.data;
     } catch (error) {
       history.push(loginPath);
+      return undefined; // 确保在错误发生时返回 undefined
     }
     return undefined;
   };
@@ -41,17 +41,16 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     actionsRender: () => [<Question key="doc" />],
     avatarProps: {
       src:
-        initialState?.currentUser?.userAvatar ||
-        'https://friends-backends-image.oss-cn-shenzhen.aliyuncs.com/2024-03/23.png',
+        initialState?.currentUser?.userAvatar !== undefined
+          ? initialState?.currentUser?.userAvatar
+          : 'https://friends-backends-image.oss-cn-shenzhen.aliyuncs.com/2024-03/23.png',
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
       },
     },
     waterMarkProps: {
-      content:
-        initialState?.currentUser?.userAvatar ||
-        'https://friends-backends-image.oss-cn-shenzhen.aliyuncs.com/2024-03/23.png',
+      content: initialState?.currentUser?.userName,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -81,14 +80,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         width: '331px',
       },
     ],
-    links: isDev
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
-      : [],
+
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
