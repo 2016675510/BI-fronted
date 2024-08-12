@@ -1,10 +1,10 @@
-import {genChartByAiAsyncUsingPost} from '@/services/Power-Bi/chartController';
-import {UploadOutlined} from '@ant-design/icons';
-import {Button, Card, Form, message, Select, Space, Upload} from 'antd';
+import { genChartByAiAsyncUsingPost } from '@/services/Power-Bi/chartController';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Form, message, Select, Space, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-import {useForm} from 'antd/es/form/Form';
-import React, {useState} from 'react';
+import { useForm } from 'antd/es/form/Form';
+import React, { useState } from 'react';
 
 /**
  * 添加图表（异步）页面
@@ -33,7 +33,7 @@ const AddChartAsync: React.FC = () => {
         form.resetFields();
       }
     } catch (e: any) {
-      message.warning('分析失败', e.message);
+      message.warning('分析失败', 3);
     }
     setSubmitting(false);
   };
@@ -64,9 +64,13 @@ const AddChartAsync: React.FC = () => {
               options={[
                 { value: '折线图', label: '折线图' },
                 { value: '柱状图', label: '柱状图' },
+                // { value: '线柱混搭', label: '线柱混搭' },
                 { value: '饼图', label: '饼图' },
                 { value: '雷达图', label: '雷达图' },
                 { value: '散点图', label: '散点图' },
+                { value: '旭日图', label: '旭日图' },
+                { value: '桑基图', label: '桑基图' },
+                { value: '拓扑图', label: '拓扑图' },
               ]}
             ></Select>
           </Form.Item>

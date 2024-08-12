@@ -4,20 +4,40 @@
     layout: false,
     routes: [{ name: '登录', path: '/user/login', component: './User/Login' }],
   },
-  { path: '/', redirect: '/add' },
-  { path: '/add_excel', name: '智能生成', icon: 'FundTwoTone', component: './AddExcel' },
-
-  { path: '/add', name: '智能分析', icon: 'BoxPlotTwoTone', component: './AddChart' },
+  { path: '/', redirect: '/bi/add' },
   {
-    path: '/add_async',
-    name: '智能分析(异步)',
+    path: '/bi',
+    name: 'AI图表分析',
     icon: 'SlidersTwoTone',
-    component: './AddChartAsync',
+    routes: [
+      {
+        path: '/bi/add_async',
+        name: '图表分析(异步)',
+        icon: 'SlidersTwoTone',
+        component: './AddChartAsync',
+      },
+      { path: '/bi/add', name: '图表分析', icon: 'BoxPlotTwoTone', component: './AddChart' },
+
+      { name: '我的图表', icon: 'PieChartTwoTone', path: '/bi/list', component: './MyChart' },
+    ],
   },
-  { name: '我的图表', icon: 'PieChartTwoTone', path: '/list', component: './MyChart' },
+  {
+    path: '/ai',
+    name: '智慧AI',
+    icon: 'FundTwoTone',
+    routes: [
+      {
+        path: '/ai/add_excel',
+        name: 'Excel表格生成',
+        icon: 'FundTwoTone',
+        component: './AddExcel',
+      },
+      { path: 'ai/assistant', name: 'AI问答', icon: 'FundTwoTone', component: './AiAssistant' },
+    ],
+  },
   {
     name: '个人中心',
-    icon: 'PieChartTwoTone',
+    icon: 'SmileTwoTone',
     path: '/user/center',
     component: './User/UserCenter',
   },

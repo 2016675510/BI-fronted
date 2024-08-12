@@ -1,4 +1,5 @@
 import { AvatarDropdown, AvatarName, Footer, Question } from '@/components';
+
 import { getLoginUserUsingGet } from '@/services/Power-Bi/userController';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
@@ -50,7 +51,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.userName,
+      content: initialState?.currentUser?.userName ? initialState?.currentUser?.userName : '未知',
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -117,6 +118,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   baseURL: 'http://localhost:8101',
+  // baseURL: 'http://39.103.140.15:8101',
   withCredentials: true,
   ...errorConfig,
 };

@@ -1,11 +1,25 @@
-import {deleteChartUsingPost, listMyChartVoByPageUsingPost,} from '@/services/Power-Bi/chartController';
-import {DeleteTwoTone} from '@ant-design/icons';
-import {useModel} from '@umijs/max';
-import {Avatar, Button, Card, Collapse, List, message, Popconfirm, PopconfirmProps, Result,} from 'antd';
-import {Text} from 'antd-mobile-alita';
+import {
+  deleteChartUsingPost,
+  listMyChartVoByPageUsingPost,
+  updateChartUsingPost,
+} from '@/services/Power-Bi/chartController';
+import { DeleteTwoTone } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import {
+  Avatar,
+  Button,
+  Card,
+  Collapse,
+  List,
+  message,
+  Popconfirm,
+  PopconfirmProps,
+  Result,
+} from 'antd';
+import { Text } from 'antd-mobile-alita';
 import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * 添加图表页面
@@ -29,6 +43,7 @@ const MyChart: React.FC = () => {
         if (res.data.records) {
           res.data.records.forEach((data) => {
             //如果状态为succeed，才会解析图表代码
+
             if (data.status === 'succeed') {
               const chartOption = JSON.parse(data.genChart ?? '{}');
               if (chartOption.title !== null) chartOption.title = undefined;
@@ -39,23 +54,25 @@ const MyChart: React.FC = () => {
           setTotal(res.data.total ?? 0);
         }
       } else {
-        message.error('获取我的图表失败');
+        message.warning('获取我的图表失败', 3);
       }
     } catch (e: any) {
-      message.error('获取我的图表失败', e.message);
+      message.warning('获取我的图表发生异常', 3);
+    } finally {
+      setLoading(false);
     }
     setLoading(false);
   };
-
+  //钩子函数，[searchParams]发送变化时，会自动执行
+  useEffect(() => {
+    loadData();
+  }, [searchParams]);
 
   // const confirm: PopconfirmProps['onConfirm'] = (e) => {
   //   console.log(e);
   //   message.success('Click on Yes');
   // };
-  const confirm: (id: number) => void = (id) => {
-    deleteChart(id);
-    // 在这里使用id做删除操作
-  };
+
   const deleteChart = async (id: number) => {
     try {
       const response = await deleteChartUsingPost({ id });
@@ -65,22 +82,22 @@ const MyChart: React.FC = () => {
         loadData();
         message.success('删除成功');
       } else {
-        message.error('删除失败');
+        message.error('删除失败', 3);
       }
     } catch (error) {
       console.error(error);
-      message.error('删除过程中发生错误');
+      message.error('删除过程中发生错误', 5);
     }
   };
   const cancel: PopconfirmProps['onCancel'] = (e) => {
-    // console.log(e);
+    console.log(e);
     // message.error('Click on No');
   };
+  const confirm: (id: number) => void = (id) => {
+    deleteChart(id);
+    // 在这里使用id做删除操作
+  };
 
-  //钩子函数，[searchParams]发送变化时，会自动执行
-  useEffect(() => {
-    loadData();
-  }, [searchParams]);
   const { Meta } = List.Item;
 
   return (
@@ -134,17 +151,24 @@ const MyChart: React.FC = () => {
                 }}
               >
                 <Meta
-                  avatar={<Avatar src={currentUser?.userAvatar || 'https://friends-backends-image.oss-cn-shenzhen.aliyuncs.com/2024-03/23.png'} />}
+                  avatar={
+                    <Avatar
+                      src={
+                        currentUser?.userAvatar ||
+                        'https://friends-backends-image.oss-cn-shenzhen.aliyuncs.com/2024-03/23.png'
+                      }
+                    />
+                  }
                   title={item.name}
                   description={item.chartType ? '图表类型:' + item.chartType : undefined}
                 />
                 <Popconfirm
-                  title="Delete the chart"
-                  description="Are you sure to delete this chart?"
+                  title="删除图表"
+                  // description="是否删除此图表?"
                   onConfirm={() => confirm(item.id)}
                   onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
+                  okText="确认"
+                  cancelText="取消"
                 >
                   <Button type="dashed" icon={<DeleteTwoTone />} />
                 </Popconfirm>
@@ -176,7 +200,21 @@ const MyChart: React.FC = () => {
                     <div style={{ marginBottom: 16 }} />
                     <p>{'分析目标:' + item.goal}</p>
                     <div style={{ marginBottom: 16 }} />
-                    <ReactECharts option={item.genChart && JSON.parse(item.genChart ?? '{}')} />
+                    <ReactECharts
+                      option={item.genChart && JSON.parse(item.genChart ?? '{}')}
+                      notMerge
+                      lazyUpdate
+                      style={{ height: '250px', width: '100%' }}
+                      onChartReady={() => {
+                        // 图表准备完毕后，可以做一些额外的操作，如更新数据等
+                        console.error(`load success`);
+                      }}
+                      onError={(err) => {
+                        // 处理图表渲染时发生的错误
+                        updateChartUsingPost({ id: item.chartId, status: 'failed' });
+                        console.error(`Error rendering chart for ${item.name}:`, err);
+                      }}
+                    />
                     <Collapse
                       size="small"
                       items={[

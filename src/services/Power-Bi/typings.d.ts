@@ -4,6 +4,17 @@ declare namespace API {
     name?: string;
   };
 
+  type Aicontents = {
+    answer?: string;
+    createTime?: string;
+    execMessage?: string;
+    id?: number;
+    isDelete?: number;
+    question?: string;
+    updateTime?: string;
+    userId?: number;
+  };
+
   type BaseResponseBiResponse_ = {
     code?: number;
     data?: BiResponse;
@@ -25,6 +36,12 @@ declare namespace API {
   type BaseResponseExcelVO_ = {
     code?: number;
     data?: ExcelVO;
+    message?: string;
+  };
+
+  type BaseResponseListAicontents_ = {
+    code?: number;
+    data?: Aicontents[];
     message?: string;
   };
 
@@ -240,13 +257,18 @@ declare namespace API {
     total?: number;
   };
 
-  type SseEmitter = {
-    timeout?: number;
+  type queryAiBySseUsingGETParams = {
+    /** userMessage */
+    userMessage?: string;
   };
 
-  type testSSEUsingGETParams = {
+  type queryAiUsingGETParams = {
     /** userMessage */
-    userMessage: string;
+    userMessage?: string;
+  };
+
+  type SseEmitter = {
+    timeout?: number;
   };
 
   type uploadFileUsingPOSTParams = {

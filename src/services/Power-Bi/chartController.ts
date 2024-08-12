@@ -197,21 +197,6 @@ export async function listMyChartVoByPageUsingPost(
   });
 }
 
-/** testSSE GET /api/chart/sse */
-export async function testSseUsingGet(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.testSSEUsingGETParams,
-  options?: { [key: string]: any },
-) {
-  return request<API.SseEmitter>('/api/chart/sse', {
-    method: 'GET',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
 /** updateChart POST /api/chart/update */
 export async function updateChartUsingPost(
   body: API.ChartUpdateRequest,

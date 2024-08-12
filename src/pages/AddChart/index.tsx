@@ -1,82 +1,9 @@
 import { genChartByAiUsingPost, updateChartUsingPost } from '@/services/Power-Bi/chartController';
 import { UploadOutlined } from '@ant-design/icons';
-import {
-  Alert,
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  message,
-  Row,
-  Select,
-  Space,
-  Spin,
-  Upload,
-} from 'antd';
+import { Button, Card, Col, Divider, Form, message, Row, Select, Space, Spin, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import ReactECharts from 'echarts-for-react';
 import React, { useState } from 'react';
-
-const Lang = () => {
-  const { styles } = useStyles();
-  return;
-};
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => {
-  return (
-    <Alert
-      style={{
-        marginBottom: 24,
-      }}
-      message={content}
-      type="error"
-      showIcon
-    />
-  );
-};
-
-interface Option {
-  value: string;
-  label: string;
-  children?: Option[];
-}
-
-const options: Option[] = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hanzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 /**
  * 添加图表页面
@@ -86,15 +13,7 @@ const AddChart: React.FC = () => {
   const [chart, setChart] = useState<API.BiResponse>();
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [option, setOption] = useState<any>();
-  const [updateChart, setUpdateChart] = useState<API.ChartUpdateRequest>();
-
-  const normFile = (e: any) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
+  // const [updateChart, setUpdateChart] = useState<API.ChartUpdateRequest>();
 
   const onFinish = async (values: any) => {
     if (submitting) return;
@@ -119,7 +38,7 @@ const AddChart: React.FC = () => {
       console.log(res);
     } catch (e: any) {
       updateChartUsingPost({ id: res.data.chartId, status: 'failed' });
-      message.error('分析失败');
+      message.error('分析失败', 3);
     }
     setSubmitting(false);
   };
@@ -144,7 +63,7 @@ const AddChart: React.FC = () => {
                   options={[
                     { value: '折线图', label: '折线图' },
                     { value: '柱状图', label: '柱状图' },
-                    { value: '线柱混搭', label: '线柱混搭' },
+                    // { value: '线柱混搭', label: '线柱混搭' },
                     { value: '饼图', label: '饼图' },
                     { value: '雷达图', label: '雷达图' },
                     { value: '散点图', label: '散点图' },

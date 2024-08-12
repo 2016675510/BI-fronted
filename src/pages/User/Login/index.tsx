@@ -5,13 +5,7 @@ import {
   userLoginUsingPost,
   userRegisterUsingPost,
 } from '@/services/Power-Bi/userController';
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { ProForm } from '@ant-design/pro-form/lib';
 import { Helmet, history, useModel } from '@umijs/max';
@@ -56,18 +50,8 @@ const useStyles = createStyles(({ token }) => {
     },
   };
 });
-const ActionIcons = () => {
-  const { styles } = useStyles();
-  return (
-    <>
-      <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.action} />
-      <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.action} />
-      <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.action} />
-    </>
-  );
-};
+
 const Lang = () => {
-  const { styles } = useStyles();
   return;
 };
 const LoginMessage: React.FC<{
@@ -133,11 +117,12 @@ const Login: React.FC = () => {
       const res = await userLoginUsingPost(values);
       if (res.code === 0) {
         const defaultLoginSuccessMessage = '登录成功！';
-        message.success(defaultLoginSuccessMessage);
+
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         window.location.reload();
+        message.success(defaultLoginSuccessMessage);
         return;
       } else {
         message.error(res.message);
@@ -192,11 +177,11 @@ const Login: React.FC = () => {
           }}
           logo={<img alt="logo" src="/logo.svg" />}
           title="Power-BI"
-          subTitle={'Power-BI 是西湖 区最具影响力的 Web 设计规范'}
+          subTitle={'洞察未来，决策无忧'}
           initialValues={{
             autoLogin: true,
           }}
-          actions={type !== 'mobile' ? ['其他登录方式 :', <ActionIcons key="icons" />] : []}
+          // actions={type !== 'mobile' ? ['其他登录方式 :', <ActionIcons key="icons" />] : []}
           // actions={['其他登录方式 :', <ActionIcons key="icons" />]}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
@@ -259,7 +244,7 @@ const Login: React.FC = () => {
             <ProForm
               submitter={{
                 resetButtonProps: false, // 隐藏重置按钮
-                render: (submitterProps, dom) => [
+                render: (submitterProps) => [
                   <Button
                     key="submit"
                     type="primary"
